@@ -1,0 +1,20 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+    <changeSet id="V1.0.0.00__create_token_table.xml" author="krzychu">
+        <preConditions onFail="MARK_RAN" onFailMessage="Table TOKEN already exists. Skipping">
+            <not>
+                <tableExists tableName="TOKEN"/>
+            </not>
+        </preConditions>
+        <sql>
+            CREATE TABLE TOKEN (
+                id      SERIAL PRIMARY KEY,
+                token   VARCHAR(300) NOT NULL,
+                created TIMESTAMP DEFAULT NOW()
+            );
+        </sql>
+    </changeSet>
+</databaseChangeLog>

@@ -1,0 +1,24 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+    <changeSet id="V1.0.0.00__create_user_table.xml" author="krzychu">
+        <preConditions onFail="MARK_RAN" onFailMessage="Table USERS already exists. Skipping">
+            <not>
+                <tableExists tableName="USERS"/>
+            </not>
+        </preConditions>
+        <sql>
+            CREATE TABLE USERS
+            (
+                "username"   VARCHAR(50)  NOT NULL,
+                "first_name" VARCHAR(100) NULL,
+                "last_name"  VARCHAR(100) NULL,
+                "password"   VARCHAR(100) NOT NULL,
+                "enabled"    INT      NOT NULL DEFAULT 1,
+                primary key ("username")
+            )
+        </sql>
+    </changeSet>
+</databaseChangeLog>

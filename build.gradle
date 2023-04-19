@@ -1,0 +1,92 @@
+plugins {
+    id 'base'
+    id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+    id 'io.freefair.lombok' version "4.1.4"
+    id 'org.owasp.dependencycheck' version "5.3.2.1"
+    id 'com.google.cloud.tools.jib' version '3.2.1' apply false
+}
+
+allprojects {
+    group = 'com.example'
+
+    repositories {
+        mavenLocal()
+        mavenCentral()
+    }
+
+    tasks.withType(JavaCompile) {
+        options.encoding = 'UTF-8'
+        options.compilerArgs << '-parameters'
+    }
+}
+
+subprojects {
+    apply plugin: 'java'
+    apply plugin: 'io.spring.dependency-management'
+    apply plugin: 'maven-publish'
+
+    sourceCompatibility = JavaVersion.VERSION_11
+    generateLombokConfig.enabled = false
+
+    ext {
+        springBootVersion = '2.7.6'
+        springCloudVersion = '2021.0.5'
+        springConstractVersion = '3.1.2'
+        springTestVersion = '5.3.24'
+        openFeignVersion = '3.1.2'
+        mapstructVersion = '1.5.3.Final'
+        gsonFeignVersion = '11.8'
+    }
+
+    dependencyManagement {
+        imports {
+            mavenBom "org.springframework.boot:spring-boot-dependencies:$springBootVersion"
+            mavenBom "org.springframework.cloud:spring-cloud-contract-dependencies:$springConstractVersion"
+            mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
+        }
+
+        dependencies {
+            dependency "org.springframework.boot:spring-boot-starter-security:$springBootVersion"
+            dependency "org.springframework.boot:spring-boot-starter-web:$springBootVersion"
+            dependency "org.springframework.boot:spring-boot-starter-oauth2-client:$springBootVersion"
+            dependency "org.springframework.boot:spring-boot-starter-jdbc:$springBootVersion"
+
+            dependency "org.springframework.boot:spring-boot-starter-test:$springBootVersion"
+            dependency "org.springframework.security:spring-security-test:$springBootVersion"
+
+            dependency "org.springframework:spring-test:$springTestVersion"
+
+
+            dependency "org.mapstruct:mapstruct:$mapstructVersion"
+            dependency "org.mapstruct:mapstruct-processor:$mapstructVersion"
+
+            // Serialization
+            dependency "io.github.openfeign:feign-gson:$gsonFeignVersion"
+
+            //Feign
+            dependency "org.springframework.cloud:spring-cloud-starter-openfeign:${openFeignVersion}"
+            dependency "org.springframework.cloud:spring-cloud-openfeign-core:${openFeignVersion}"
+            dependency 'io.github.openfeign:feign-core:11.10'
+            dependency 'io.github.openfeign.form:feign-form:3.8.0'
+            dependency 'io.github.openfeign.form:feign-form-spring:3.8.0'
+
+        }
+    }
+
+    String repository = version.endsWith('SNAPSHOT') ? 'libs-snapshot' : 'libs-release'
+    publishing {
+        publications {
+            myLibrary(MavenPublication) {
+                from components.java
+                versionMapping {
+                    usage('java-runtime') {
+                        fromResolutionResult()
+                    }
+                }
+            }
+        }
+        repositories {
+            mavenLocal()
+        }
+    }
+}
