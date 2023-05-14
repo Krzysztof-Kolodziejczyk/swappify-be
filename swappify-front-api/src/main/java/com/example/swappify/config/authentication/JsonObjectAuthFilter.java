@@ -1,6 +1,6 @@
 package com.example.swappify.config.authentication;
 
-import com.example.swappify.model.dto.CredentialsDTO;
+import com.example.swappifyapimodel.model.dto.CredentialsDTO;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;

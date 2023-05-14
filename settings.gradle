@@ -2,3 +2,4 @@ rootProject.name = 'swappify-be'
 
 include 'swappify-front-api'
 include 'swappify-auth-connector'
+include 'swappify-api-model'

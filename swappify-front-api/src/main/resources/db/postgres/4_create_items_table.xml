@@ -1,0 +1,28 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+    <changeSet id="V1.0.0.00__create_items_table.xml" author="krzychu">
+        <preConditions onFail="MARK_RAN" onFailMessage="Table ITEMS already exists. Skipping">
+            <not>
+                <tableExists tableName="ITEMS"/>
+            </not>
+        </preConditions>
+        <sql>
+            create table items
+            (
+                id     bigint       not null
+                    primary key,
+                name   varchar(100) not null,
+                price  numeric      not null,
+                vendor varchar(50)  not null
+                    constraint items_users_username_fk
+                        references users
+                        on update cascade on delete cascade,
+                uuid   varchar(100) not null
+                    unique
+            );
+        </sql>
+    </changeSet>
+</databaseChangeLog>

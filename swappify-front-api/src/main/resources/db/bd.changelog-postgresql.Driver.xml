@@ -6,4 +6,5 @@
     <include file="/db/postgres/1_create_user_table.xml"/>
     <include file="/db/postgres/2_create_token_table.xml"/>
     <include file="/db/postgres/3_create_authorities_table.xml"/>
+    <include file="/db/postgres/4_create_items_table.xml"/>
 </databaseChangeLog>

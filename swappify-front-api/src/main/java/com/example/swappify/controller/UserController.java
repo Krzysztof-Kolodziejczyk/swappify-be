@@ -1,11 +1,10 @@
 package com.example.swappify.controller;
 
 
-import com.example.swappify.model.dto.CredentialsDTO;
-import com.example.swappify.model.dto.UserDTO;
 import com.example.swappify.model.entity.User;
-import com.example.swappify.model.exceptions.UserNotFoundException;
 import com.example.swappify.service.UserService;
+import com.example.swappifyapimodel.model.dto.UserDTO;
+import com.example.swappifyapimodel.model.exceptions.UserNotFoundException;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -20,11 +19,7 @@ public class UserController {
 
     private UserService service;
 
-    @PostMapping("/login")
-    public void login(@RequestBody CredentialsDTO credentials) {
-    }
-
-    @PostMapping("/signout")
+    @GetMapping("/signout")
     public void logout(@RequestHeader(HttpHeaders.AUTHORIZATION) String token) {
         service.logout(token);
     }

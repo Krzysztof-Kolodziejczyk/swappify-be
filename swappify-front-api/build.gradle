@@ -5,6 +5,7 @@ plugins {
 dependencies {
     // projects
     implementation project(':swappify-auth-connector')
+    implementation project(':swappify-api-model')
 
     // web tools
     implementation 'org.springframework.boot:spring-boot-starter-web'
