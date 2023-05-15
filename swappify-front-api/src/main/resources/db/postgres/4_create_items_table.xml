@@ -12,7 +12,7 @@
         <sql>
             create table items
             (
-                id     bigint       not null
+                id     bigserial
                     primary key,
                 name   varchar(100) not null,
                 price  numeric      not null,

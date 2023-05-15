@@ -13,8 +13,7 @@
             CREATE TABLE USERS
             (
                 "username"   VARCHAR(50)  NOT NULL,
-                "first_name" VARCHAR(100) NULL,
-                "last_name"  VARCHAR(100) NULL,
+                "email"  VARCHAR(100) NOT NULL,
                 "password"   VARCHAR(100) NOT NULL,
                 "enabled"    INT      NOT NULL DEFAULT 1,
                 primary key ("username")

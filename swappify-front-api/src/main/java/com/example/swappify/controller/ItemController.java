@@ -7,8 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.lang.NonNull;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -20,8 +19,8 @@ public class ItemController implements ItemConnector {
     private final ItemService service;
 
     @Override
-    public ResponseEntity<Void> addItemMetadata(@AuthenticationPrincipal UsernamePasswordAuthenticationToken user, @NonNull ItemDTO item) {
-        service.addItem(user.getName(), item);
+    public ResponseEntity<Void> addItemMetadata(@NonNull ItemDTO item) {
+        service.addItem(SecurityContextHolder.getContext().getAuthentication().getName(), item);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 }

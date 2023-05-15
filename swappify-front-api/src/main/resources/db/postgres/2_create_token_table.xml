@@ -11,7 +11,7 @@
         </preConditions>
         <sql>
             CREATE TABLE TOKEN (
-                id      SERIAL PRIMARY KEY,
+                id      BIGSERIAL PRIMARY KEY,
                 token   VARCHAR(300) NOT NULL,
                 created TIMESTAMP DEFAULT NOW()
             );
